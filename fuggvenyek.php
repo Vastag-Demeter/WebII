@@ -23,6 +23,7 @@
         return true;
     }
 
+    //A paraméterben megadott életkor nagyobb, mint 18 (Csak az évet veszi figyelembe)
     function adult($value){
         $current_year = date('Y');
         $user_birth_year = explode('-', $value)[0];
@@ -49,7 +50,9 @@
               {
                 if(!$rule($_POST[$input_name]))
                 {
-                    $hibak[] = $rule . " NEM OK";
+                    //A megadott függvény visszatérési értéke "false",
+                    //szóval az adott szabálynak nem felelt meg.
+                    $errors[] = $rule . " NEM OK"; 
                 }
               }
              
@@ -57,7 +60,7 @@
 
         if(isset($hibak))
         {
-            return $hibak;
+            return $errors;
         }
         return "OK";
         
