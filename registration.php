@@ -23,7 +23,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $email = clear($_POST["email"]);
     }
     else {
-       echo "Az email hibás!";
+       echo "Az email hibás! <br>";
        foreach($email_errors as $error)
             echo $error;
         echo "<br>";
@@ -35,7 +35,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
        $name = clear($_POST["name"]);
     }
     else{
-          echo "A név hibás!";
+          echo "A név hibás! <br>";
        foreach($name_errors as $error)
             echo $error;
         echo "<br>";
@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          $password = clear($_POST["password"]);
     }
     else{
-          echo "A jelszó hibás!";
+          echo "A jelszó hibás! <br>";
        foreach($password_errors as $error)
             echo $error;
         echo "<br>";
@@ -62,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
          $birth = clear($_POST["birth_date"]);
     }
     else{
-          echo "A születési dátum hibás!";
+          echo "A születési dátum hibás! <br>";
        foreach($birth_errors as $error)
             echo $error;
         echo "<br>";
