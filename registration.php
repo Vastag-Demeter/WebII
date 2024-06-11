@@ -16,7 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     require './fuggvenyek.php';
     
     
-
+    //Email, nem lehet üres
     $email_errors = check_data("email|notEmpty");
     if($email_errors == "OK")
     {
@@ -29,6 +29,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<br>";
     }
     
+    //Név, nem lehet üres
     $name_errors = check_data("name|notEmpty");
     if($name_errors == "OK")
     {
@@ -41,8 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<br>";
     }
 
-
-
+    //Jelszó, nem lehet üres és a megfelelő formátumban kell lennie ([A-Za-z0-9])
     $password_errors = check_data("password|notEmpty,password_correct_format");
     if($password_errors == "OK")
     {
@@ -55,7 +55,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<br>";
     }
     
-
+    //Születési idő, nem lehet üres, az év alapján számolt életkor nem lehet kisebb,
+    //mint 18
     $birth_errors = check_data("birth_date|notEmpty,adult");
         if($birth_errors == "OK")
     {
@@ -68,6 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         echo "<br>";
     }
     
+    //Ha minden adatra a visszatérési érték megfelel ("OK"), akkor elmenthetem őket a fájlba
     if($email_errors == "OK" && $name_errors == "OK" && $password_errors == "OK" && $birth_errors == "OK")
     {
         echo "Minden pacek!";
