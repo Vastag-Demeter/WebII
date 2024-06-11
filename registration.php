@@ -8,89 +8,79 @@
 <?php
     
 
-    function clear($value){
-    $value = trim($value);
-    $value = stripslashes($value);
-    $value = htmlspecialchars($value);
-    return $value;
-    }
-
-    function password_correct_format($value){
-    if (!preg_match('/[A-Za-z0-9]/', $value))
-        return false;
-    return true;
-    }
 
 
 
-    $connected = false;
+    
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    require './fuggvenyek.php';
+    
+    
 
-    if(array_key_exists('name', $_POST))
+    $email_errors = check_data("email|notEmpty");
+    if($email_errors == "OK")
     {
-        $name = clear($_POST['name']);
-        if (empty($name))
-            $hibak[] = "A név nem lehet üres!";
-        
-    } else
-        $hibak[] = "A név megadása kötelező!";
-
-    if(array_key_exists('email', $_POST))
-    {
-        $email = clear($_POST['email']);
-        if (empty($email))
-            $hibak[] = "Az email cím nem lehet üres!";
-    } else
-        $hibak[] = "Az email cím megadása kötelező!";
-
-
-    if(array_key_exists('password', $_POST))
-    {
-        $password = clear($_POST['password']);
-        if(!empty($password))
-        {
-            if (!password_correct_format($password))
-                $hibak[] = "A jelszó csak számot, valamint az angol ABC kis és nagy betűit tartalmazhaja!";
-        } else
-            $hibak[] = "A jelszó nem lehet üres!";
-    } else
-        $hibak[] = "A jelszó megadása kötelező!";
-
-    if(array_key_exists('birth_date',$_POST))
-    {
-        $birth = clear($_POST['birth_date']);
-        if(!empty($birth))
-        {
-            $current_year = date('Y');
-            if (date('Y-M-DD') - $birth < 18)
-                $hibak[] = "Még nem töltötte be a 18-at";
-            
-
-        } else
-            $hibak[] = "A születési dátum nem lehet üres!";
-    } else
-        $hibak[] = "A születési dátum megadása kötelező";
-
-
-
-
-
-    if (isset($hibak))
-        var_dump($hibak);
+        $email = clear($_POST["email"]);
+    }
     else {
-
-    if(file_exists("data.csv"))
+       echo "Az email hibás!";
+       foreach($email_errors as $error)
+            echo $error;
+        echo "<br>";
+    }
+    
+    $name_errors = check_data("name|notEmpty");
+    if($name_errors == "OK")
     {
-        $method = "a";
+       $name = clear($_POST["name"]);
     }
     else{
-        $method = "w";
+          echo "A név hibás!";
+       foreach($name_errors as $error)
+            echo $error;
+        echo "<br>";
     }
-    $data = fopen("data.csv", $method);
-        $row = $email.";".$name . ";" . $password . ";" . $birth . "\n";
-    fputs($data, $row);
-    fclose($data);
+
+
+
+    $password_errors = check_data("password|notEmpty,password_correct_format");
+    if($password_errors == "OK")
+    {
+         $password = clear($_POST["password"]);
     }
+    else{
+          echo "A jelszó hibás!";
+       foreach($password_errors as $error)
+            echo $error;
+        echo "<br>";
+    }
+    
+
+    $birth_errors = check_data("birth_date|notEmpty,adult");
+        if($birth_errors == "OK")
+    {
+         $birth = clear($_POST["birth_date"]);
+    }
+    else{
+          echo "A születési dátum hibás!";
+       foreach($birth_errors as $error)
+            echo $error;
+        echo "<br>";
+    }
+    
+    if($email_errors == "OK" && $name_errors == "OK" && $password_errors == "OK" && $birth_errors == "OK")
+    {
+        echo "Minden pacek!";
+        echo $email."<br>";
+        echo $name."<br>";
+        echo $password."<br>";
+        echo $birth."<br>";
+    }
+
+
+
+
+
 }
 
 
