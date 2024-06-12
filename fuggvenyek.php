@@ -41,6 +41,7 @@
         $input_datas = explode('|', $input); // Egy tömbbe tárolom az input adatait
         $input_name = $input_datas[0]; // A kulcs a $_POST tömbben
         $input_rules = explode(',',$input_datas[1]); //Az szabályok tömbje az adott kulcsra
+        $input_correct = true;
         
         if(array_key_exists($input_name, $_POST))
             {
@@ -52,17 +53,15 @@
                 {
                     //A megadott függvény visszatérési értéke "false",
                     //szóval az adott szabálynak nem felelt meg.
-                    $errors[] = $rule . " NEM OK"; 
+                    $input_correct = false;
+                    break;
+                 
                 }
               }
              
             }
 
-        if(isset($errors))
-        {
-            return $errors;
-        }
-        return "OK";
+            return $input_correct;
         
     }
 
