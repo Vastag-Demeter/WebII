@@ -72,11 +72,71 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     //Ha minden adatra a visszatérési érték megfelel ("OK"), akkor elmenthetem őket a fájlba
     if($email_errors == "OK" && $name_errors == "OK" && $password_errors == "OK" && $birth_errors == "OK")
     {
-        echo "Minden pacek!";
-        echo $email."<br>";
-        echo $name."<br>";
-        echo $password."<br>";
-        echo $birth."<br>";
+        //Az írás metódusa, "w", ha a fájl nem létezik,
+        // "ra", ha a fájl lézezik
+        $method = "";
+        //Ez a sor, amivel kiegészítem a fájlt
+        $line = $email . ";" . $name . ";" . $password . ";" . $birth . PHP_EOL;
+         //Ha nem létezik a fájl, akkor nem olvasok semmit, hanem 
+        //létrehozom és beleírom az adatot.
+        //Ha létezik, akkor megnézem, szerepel-e már benne ilyen
+        //email és ha nem, akkor egészítem csak ki.
+        if(file_exists("data.csv"))
+            $method = "ra+";
+        else 
+            $method = "w";
+
+        $file = fopen("./data.csv", $method);
+
+        if(!$file)
+        {
+            echo "A fájlt nem lehet megnyitni!";
+        }
+
+        if($method == "ra+")
+        {
+            //Ebbe mentem el, ha az email létezik
+            $existing_email = false;
+            while(!feof($file))
+            {
+                //Beolvasok egy sort
+                $row = fgets($file);
+                //Kiszedem a whitespace-t
+                $row = trim($row);
+                //Felbontom a beolvasott sort email;nev;jelszo;szulido
+                $fields = explode(';', $row);
+                //Csak az emailt kell ellenőriznem
+                $field_email = $fields[0];
+                if($field_email == $email)
+                {
+                    $existing_email = true;
+                    break;
+                }
+            }
+
+
+            //Ha nincs benne az email, akkkor 
+            //a fájl végét bővítem a megadott adatokkal
+            //Ha benne van, akkor tájékoztatom a felhasználót
+            if(!$existing_email)
+            {
+                fputs($file, $line);
+            }
+            else 
+            {
+                echo "A megadott email cím már szerepel!";
+            }
+        }
+        else 
+        {
+            fwrite($file, $line);
+            echo "Írok a fájlba";
+        }
+
+        //Lezárom a fájlt
+        fclose($file);
+
+       
     }
 
 

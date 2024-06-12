@@ -58,7 +58,7 @@
              
             }
 
-        if(isset($hibak))
+        if(isset($errors))
         {
             return $errors;
         }
