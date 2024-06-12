@@ -76,7 +76,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // "ra", ha a fájl lézezik
         $method = "";
         //Ez a sor, amivel kiegészítem a fájlt
-        $line = $email . ";" . $name . ";" . $password . ";" . $birth . PHP_EOL;
+        $line = PHP_EOL.$email . ";" . $name . ";" . $password . ";" . $birth;
          //Ha nem létezik a fájl, akkor nem olvasok semmit, hanem 
         //létrehozom és beleírom az adatot.
         //Ha létezik, akkor megnézem, szerepel-e már benne ilyen
