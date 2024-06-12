@@ -7,6 +7,8 @@
 </head>
 
 <?php 
+    $email_error;
+    $password_error;
 
     if($_SERVER['REQUEST_METHOD'] == 'POST')
     {
