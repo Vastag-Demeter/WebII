@@ -14,8 +14,6 @@
     <input type="text" name="password"> <br>
     <button type="submit">Bejelentkezés</button>
     </form>
-
-
     <php> 
 
     
