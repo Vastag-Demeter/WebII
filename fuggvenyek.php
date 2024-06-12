@@ -15,7 +15,7 @@
     return true;
     }
 
-    function notEmpty($value)
+    function required($value)
     {
         if(empty($value))
             return false;

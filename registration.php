@@ -17,7 +17,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     
     //Email, nem lehet üres
-    $email_errors = check_data("email|notEmpty");
+    $email_errors = check_data("email|required");
     if($email_errors == "OK")
     {
         $email = clear($_POST["email"]);
@@ -30,7 +30,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     
     //Név, nem lehet üres
-    $name_errors = check_data("name|notEmpty");
+    $name_errors = check_data("name|required");
     if($name_errors == "OK")
     {
        $name = clear($_POST["name"]);
@@ -43,7 +43,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 
     //Jelszó, nem lehet üres és a megfelelő formátumban kell lennie ([A-Za-z0-9])
-    $password_errors = check_data("password|notEmpty,password_correct_format");
+    $password_errors = check_data("password|required,password_correct_format");
     if($password_errors == "OK")
     {
          $password = clear($_POST["password"]);
@@ -57,7 +57,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     //Születési idő, nem lehet üres, az év alapján számolt életkor nem lehet kisebb,
     //mint 18
-    $birth_errors = check_data("birth_date|notEmpty,adult");
+    $birth_errors = check_data("birth_date|required,adult");
         if($birth_errors == "OK")
     {
          $birth = clear($_POST["birth_date"]);
