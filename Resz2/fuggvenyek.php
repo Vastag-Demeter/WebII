@@ -50,3 +50,21 @@ function user_is_adult($birth_date)
     return true;
 }
 
+
+//Kiolvasok majd egy sort, a felhasználó törléséhez
+function get_one_user($email)
+{
+    require_once './connection.php';
+
+    $query = "select email from felhasznalok where email = '" . $email . "'";
+    $data = [];
+    $statement = $connection->prepare($query);
+    $success = $statement->execute($data);
+    $user = "";
+    if ($success)
+        $user = $statement->Fetch();
+
+    return $user;
+
+}
+

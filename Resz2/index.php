@@ -8,6 +8,7 @@ switch ($_SERVER['REQUEST_METHOD']) {
         require_once './new_user.php';
         break;
     case 'DELETE':
+        require_once './delete_user.php';
         break;
     case 'PUT':
         break;
