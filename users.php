@@ -6,12 +6,15 @@
     <title>Felhasználók a rendszerben</title>
 </head>
 <?php 
+//Ebbe a tömbbe fogom eltárolni a beolvasott adatokat 
 $records = [];
 $file = fopen('./data.csv', 'r');
             if($file)
             {
                 while(!feof($file))
                 {
+                    //Elkezdem beolvasni a sorokat és azokat elmentem
+                    //a tömbbe
 
                     $row = fgets($file);
                     $fields = explode(';',$row);
@@ -21,6 +24,8 @@ $file = fopen('./data.csv', 'r');
                         'password' => $fields[2],
                         'birth' => $fields[3]
                     ];
+
+                    //Hozzáadom a mezőket a tömbhöz
                     $records[] = $field_records;
                 }
             }
