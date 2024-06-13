@@ -2,9 +2,10 @@
 
 switch ($_SERVER['REQUEST_METHOD']) {
     case 'GET':
-        require_once './ql.php';
+        require_once './querry.php';
         break;
     case 'POST':
+        require_once './new_user.php';
         break;
     case 'DELETE':
         break;

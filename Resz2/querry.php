@@ -1,7 +1,7 @@
 <?php
 
 require_once './connection.php';
-$connection = new PDO($dsn, USER, PASS);
+
 
 //Ezeket az erőforrásokat fogadhatom el
 $resources = ["email", "name", "passwd", "birth"];
@@ -9,28 +9,13 @@ require_once './fuggvenyek.php';
 
 //Ha nem található meg az elfogadható erőforrások közül egy sem, akkor
 //csak kilistázom az adatbázisban található rekordokat
-if (get_res($resources) == "NEM OK") {
+if (get_res($resources) == 0) {
     $query = "select * from felhasznalok";
-    $data = [];
 
-    $statement = $connection->prepare($query);
-    $success = $statement->execute($data);
-    $users = [];
-    if ($success) {
-        echo "Az olvasás sikeres!";
-        $users = $statement->fetchAll();
-        $users_json_string = json_encode($users);
-
-        header('Content-Type: application/json;charset=utf-8');
-        echo $users_json_string;
-
-    } else {
-        echo "Az olvasás sikertelen!";
-    }
 
     //Valamennyi elfogadtható erőforrás bennevan
     // a $_GET tömbben
-} else if (get_res($resources) == "OK") {
+} else if (get_res($resources) != 0) {
     //Ebbe a tömbbe fogom belerakni az erőforrásokat
     $given_res = [];
 

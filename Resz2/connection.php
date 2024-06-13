@@ -5,4 +5,4 @@ define('PASS', '');
 define('DB', 'Felhasznalok');
 define('DB_TYPE', 'mysql');
 $dsn = DB_TYPE . ':host=' . HOST . ':' . PORT . ';dbname=' . DB; //Megnyitom a db kapcsolatot
-
+$connection = new PDO($dsn, USER, PASS);
