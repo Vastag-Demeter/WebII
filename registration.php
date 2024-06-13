@@ -26,7 +26,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     
     //Email, nem lehet üres
     $email_errors = check_data("email|required");
-    if($email_errors == "OK")
+    if($email_errors)
     {
         $email = clear($_POST["email"]);
     }

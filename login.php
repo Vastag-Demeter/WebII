@@ -17,28 +17,26 @@
 
         //Email lekérése, nem lehet üres
         $email_error = check_data("email|required");
-        if($email_error == "OK")
+        if($email_error)
         {
             $email = clear($_POST['email']);
-        }else 
-        {
-            print_r($email_error);
         }
+        else 
+            echo "Az email megadása kötelező!";
 
         //Jelszó lekérése, nem lehet üres és a megfelelő formátumban kell lennie
         $password_error = check_data("password|required,password_correct_format");
-        if($password_error == "OK")
+        if($password_error)
         {
             $password = clear($_POST['password']);
-        }else 
-        {
-            print_r($password_error);
         }
+        else 
+            echo "A jelszó nem megfelelő!";
 
 
         //Ha az email és a jelszó megfelel, akkor elkezdhetem ellenőrizni,
         //hogy található-e ilyen email-jelszó páros a fájlban
-        if($email_error == "OK" &&  $password_error == "OK")
+        if($email_error &&  $password_error)
         {
             //Megnyitom a fájlt olvasásra
             $file = fopen('./data.csv', 'r');
