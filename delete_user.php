@@ -28,26 +28,32 @@
             echo "Az email megadása kötelező!";
 
             echo "Az email: " . $email . "<br>";
-            $file = file_get_contents('data.csv');
-            $file_splitted = explode(PHP_EOL, $file);
-            $correct_records = [];
-            $user_deleted = false;
-        
-            foreach($file_splitted as $data)
+
+            if($email_correct)
             {
-                $splitted_data = explode(';', $data);
-           
-                
-                if($splitted_data[0] == $email)
+
+
+            $file = fopen('./data.csv', 'rw+');
+            $user_deleted = false;
+            $correct_records = [];
+            if($file)
+            {
+            while(!feof($file))
+            {
+
+                $row = fgets($file);
+                $splitted_row = explode(';', $row);
+
+                if($email == $splitted_row[0])
                 {
-                 
                     $user_deleted = true;
                 }
                 else {
-                    $correct_records[] = $data . PHP_EOL;
+                    $correct_records[] = $row;
                 }
+
+
             }
-           
             if($user_deleted)
             {
                 file_put_contents('./data.csv', $correct_records);
@@ -56,7 +62,8 @@
             else 
                 echo "Nincs ilyen email címmel rendelkező felhasználó!";
             
-       
+            }
+        }
         
         }
 

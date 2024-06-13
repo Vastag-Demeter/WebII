@@ -35,6 +35,9 @@
             echo "A jelszó nem megfelelő!";
 
 
+
+        if($email_correct && $new_password_correct)
+        {
         $file = fopen('./data.csv', 'rw+');
         if($file)
         {
@@ -74,6 +77,7 @@
         }
 
         fclose($file);
+        }
     }
     
     
