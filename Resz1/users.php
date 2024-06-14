@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Felhasználók a rendszerben</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <?php
 //Ebbe a tömbbe fogom eltárolni a beolvasott adatokat 
@@ -21,7 +22,8 @@ if ($file) {
             'email' => $fields[0],
             'username' => $fields[1],
             'password' => $fields[2],
-            'birth' => $fields[3]
+            'birth' => $fields[3],
+            'gender' => $fields[4]
         ];
 
         //Hozzáadom a mezőket a tömbhöz
@@ -31,12 +33,13 @@ if ($file) {
 ?>
 
 <body>
-    <table style="border: 1px solid black;">
+    <table>
         <tr>
             <th>Email cím</th>
             <th>Felhasználónév</th>
             <th>Jelszó</th>
             <th>Születési Dátum </th>
+            <th>Nem</th>
         </tr>
         <?php for ($i = 0; $i < count($records); $i++): ?>
             <tr>
@@ -44,6 +47,7 @@ if ($file) {
                 <td><?= $records[$i]['username'] ?></td>
                 <td><?= $records[$i]['password'] ?></td>
                 <td><?= $records[$i]['birth'] ?></td>
+                <td><?= $records[$i]['gender'] ?></td>
             </tr>
         <?php endfor; ?>
     </table>

@@ -10,14 +10,24 @@
 </head>
 
 <body>
-    <nav><a href="login.php">Bejelentkezés</a><a href="registration.php">Regisztráció</a><a
-            href="modify_password.php">Jelszó módosítása</a></nav>
+    <nav>
+        <p><a href="login.php">Bejelentkezés</a></p>
+        <p><a href="registration.php">Regisztráció</a></p>
+        <p><a href="modify_password.php">Jelszó módosítása</a></p>
+    </nav>
     <form action="" method="post">
         <h1>Regisztráció</h1>
         <input type="email" name="email" placeholder="Email" class="user_input">
         <input type="text" name="name" placeholder="Felhasználónév" class="user_input">
         <input type="password" name="password" placeholder="Jelszó" class="user_input">
         <label>Születési Dátum</label><input type="date" name="birth_date" class="user_input">
+        <div class="gender_div">
+            <label>Nem</label> <br>
+            <p> <label>Férfi</label><input type="radio" name="gender" value="Ferfi"></p>
+            <p> <label>Nő</label><input type="radio" name="gender" value="No"></p>
+
+
+        </div>
         <button type="submit">Regisztráció</button>
         <link rel="stylesheet" href="style.css">
     </form>
@@ -69,13 +79,22 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     }
 
+    $gender_errors = check_data("gender|required|is_null");
+    if ($gender_errors) {
+        echo $_POST['gender'];
+        $gender = clear($_POST["gender"]);
+        echo $gender;
+    } else
+        $error[] = "A nem megadása kötelező";
+
+
     //Ha minden adatra a visszatérési érték megfelel ("OK"), akkor elmenthetem őket a fájlba
-    if ($email_errors && $name_errors && $password_errors && $birth_errors) {
+    if ($email_errors && $name_errors && $password_errors && $birth_errors && $gender_errors) {
         //Az írás metódusa, "w", ha a fájl nem létezik,
         // "ra", ha a fájl lézezik
         $method = "";
         //Ez a sor, amivel kiegészítem a fájlt
-        $line = PHP_EOL . $email . ";" . $name . ";" . $password . ";" . $birth;
+        $line = PHP_EOL . $email . ";" . $name . ";" . $password . ";" . $birth . ";" . $gender;
         //Ha nem létezik a fájl, akkor nem olvasok semmit, hanem 
         //létrehozom és beleírom az adatot.
         //Ha létezik, akkor megnézem, szerepel-e már benne ilyen
@@ -133,7 +152,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 
 <?php if (isset($error)): ?>
-    <div class="">
+    <div class="server_error_message">
         <?php for ($i = 0; $i < count($error); $i++): ?>
             <p><?= $error[$i] ?></p>
         <?php endfor; ?>

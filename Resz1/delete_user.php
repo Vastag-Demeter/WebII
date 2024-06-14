@@ -12,7 +12,7 @@
     <h1>Jelszó megváltoztatása</h1>
     <form action="" method="post">
         <label>Email cím: </label>
-        <input type="text" name="email">
+        <input type="text" name="email" class="user_input">
 
         <button type="submit" class="sumbit_button">Felhasználó törlése</button>
     </form>

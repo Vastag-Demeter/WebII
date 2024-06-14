@@ -39,6 +39,7 @@ function adult($value)
 
 
 
+
 function check_data(string $input)
 {
     $input_datas = explode('|', $input); // Egy tömbbe tárolom az input adatait
@@ -59,7 +60,8 @@ function check_data(string $input)
             }
         }
 
-    }
+    } else
+        return false;
 
     return $input_correct;
 
