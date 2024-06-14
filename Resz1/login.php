@@ -18,9 +18,9 @@
     <form action="" method="POST">
         <h1>Bejelentkezés</h1>
         <label>E-mail:</label>
-        <input type="email" name="email"> <br>
+        <input type="email" name="email" class="user_input"> <br>
         <label>Jelszó:</label>
-        <input type="password" name="password"> <br>
+        <input type="password" name="password" class="user_input"> <br>
         <button type="submit">Bejelentkezés</button>
     </form>
 

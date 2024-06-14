@@ -15,9 +15,9 @@
     <form action="" method="post">
         <h1>Jelszó megváltoztatása</h1>
         <label>Email cím: </label> <br>
-        <input type="text" name="email">
+        <input type="text" name="email" class="user_input">
         <label>Új jelszó: </label>
-        <input type="password" name="password">
+        <input type="password" name="password" class="user_input">
         <button type="submit">Jelszó megváltoztása</button>
     </form>
 
