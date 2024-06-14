@@ -20,14 +20,32 @@ if (get_res($resources) == 4) {
     $passwd = $_GET['passwd'];
     $birth = $_GET['birth'];
 
+    if (strlen($email) > 100 || strlen($name) > 100 | strlen($passwd) > 100) {
+        echo "Az email, név, jelszó, maximum 100 karakter lehet!";
+        exit();
+    }
+
+
+    if (!email_correct_format($email)) {
+        echo "Az email nem megfelelő!";
+        exit();
+    }
+
+    if (!password_correct_format($passwd)) {
+        echo "A jelszó formátuma nem megfelelő!";
+        exit();
+    }
+
     if (!birth_date_is_correct($birth)) {
         echo "A születési dátum hibás!";
+        exit();
     }
     if (!user_is_adult($birth)) {
         echo "Nem töltötte be a 18-at!";
+        exit();
     }
     require_once './connection.php';
-    $update_command = 'insert into felhasznalok (email, name, passwd, birth) values (:e, :n, :p, :b);';
+    $post_command = 'insert into felhasznalok (email, name, passwd, birth) values (:e, :n, :p, :b);';
     $select_data = [
         'e' => $email,
         'n' => $name,
@@ -35,14 +53,7 @@ if (get_res($resources) == 4) {
         'b' => $birth
     ];
 
-    $statement = $connection->prepare($update_command);
-    $success = $statement->execute($select_data);
-    if ($success)
-        echo "Futtatva";
-    else
-        echo "A futtasás sikertelen";
-
-
+    execute_command($post_command, $select_data);
 
 } else {
     echo "Szükség van mind a 4 adatra!";

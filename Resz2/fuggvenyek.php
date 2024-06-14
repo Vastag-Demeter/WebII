@@ -1,6 +1,7 @@
 <?php
 
 
+
 //Megvizsgálja, hogy megtalálható az elfogadható erőforrások
 //közül legalább 1, de lehet hogy több a $_GET tömbben.
 function get_res(array $values)
@@ -13,6 +14,22 @@ function get_res(array $values)
 
     }
     return $count;
+}
+
+
+function email_correct_format($value)
+{
+    if (!preg_match('/[A-Za-z0-9@.]+$/', $value))
+        return false;
+    return true;
+}
+
+
+function password_correct_format($value)
+{
+    if (!preg_match('/[A-Za-z0-9]/', $value))
+        return true;
+    return false;
 }
 
 
@@ -50,7 +67,19 @@ function user_is_adult($birth_date)
     return true;
 }
 
+function execute_command(string $command, array $data)
+{
+    require './connection.php';
+
+    $statement = $connection->prepare($command);
+    $success = $statement->execute($data);
+    if ($success)
+        echo "Futtatva";
+    else
+        echo "A futtasás sikertelen";
+    $connection = null;
+}
 
 
 
-
+?>

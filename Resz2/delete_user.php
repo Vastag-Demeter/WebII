@@ -1,9 +1,9 @@
 <?php
 
-require_once './connection.php';
+
 require_once './fuggvenyek.php';
 $resources = ["email", "name", "passwd", "birth"];
-$delete_command;
+
 if (get_res($resources) == 1) {
     if (array_key_exists('email', $_GET)) {
         $email = $_GET['email'];
@@ -48,12 +48,5 @@ if (get_res($resources) == 1) {
 } else {
     http_response_code(404);
 }
-
-$select_data = [];
-
-$statement = $connection->prepare($delete_command);
-$success = $statement->execute($select_data);
-if ($success)
-    echo "Futtatva";
-else
-    echo "A futtasás sikertelen";
+$data = [];
+execute_command($delete_command, $data);

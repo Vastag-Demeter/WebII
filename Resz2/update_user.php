@@ -1,6 +1,6 @@
 <?php
 require_once './fuggvenyek.php';
-require_once './connection.php';
+
 
 $resources = ["email", "name", "passwd", "birth"];
 if (get_res($resources) > 1 && array_key_exists('email', $_GET)) {
@@ -25,8 +25,24 @@ if (get_res($resources) > 1 && array_key_exists('email', $_GET)) {
         $given_res_values[] = $_GET[$res];
     }
 
-    print_r($given_res);
-    print_r($given_res_values);
+
+
+    if (in_array('passwd', $given_res)) {
+        $passwd = $_GET['passwd'];
+        if (strlen($passwd) > 100 || !password_correct_format($passwd)) {
+            echo "A jelszó nem megfelelő!";
+            exit();
+        }
+    }
+
+    if (in_array('name', $given_res)) {
+        $name = $_GET['name'];
+        if (strlen($name) > 100) {
+            echo "A név túl hosszú!";
+            exit();
+        }
+    }
+
 
     $update_command = "update felhasznalok set ";
 
@@ -51,9 +67,4 @@ if (get_res($resources) > 1 && array_key_exists('email', $_GET)) {
 
 $select_data = [];
 
-$statement = $connection->prepare($update_command);
-$success = $statement->execute($select_data);
-if ($success)
-    echo "Futtatva";
-else
-    echo "A futtasás sikertelen";
+execute_command($update_command, $select_data);

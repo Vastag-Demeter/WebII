@@ -81,9 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $gender_errors = check_data("gender|required|is_null");
     if ($gender_errors) {
-        echo $_POST['gender'];
         $gender = clear($_POST["gender"]);
-        echo $gender;
     } else
         $error[] = "A nem megadása kötelező";
 

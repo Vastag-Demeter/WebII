@@ -10,7 +10,7 @@ require_once './fuggvenyek.php';
 //Ha nem található meg az elfogadható erőforrások közül egy sem, akkor
 //csak kilistázom az adatbázisban található rekordokat
 if (get_res($resources) == 0) {
-    $update_command = "select * from felhasznalok";
+    $get_command = "select * from felhasznalok";
 
 
     //Valamennyi elfogadtható erőforrás bennevan
@@ -36,14 +36,14 @@ if (get_res($resources) == 0) {
         $given_res_values[] = $_GET[$res];
     }
 
-    $update_command = "select * from felhasznalok where ";
+    $get_command = "select * from felhasznalok where ";
 
     for ($i = 0; $i < count($given_res); $i++) {
-        $update_command = $update_command . $given_res[$i] . "=" . "'" . $given_res_values[$i] . "'";
+        $get_command = $get_command . $given_res[$i] . "=" . "'" . $given_res_values[$i] . "'";
         if ($i != count($given_res) - 1)
-            $update_command = $update_command . " and ";
+            $get_command = $get_command . " and ";
     }
-    $update_command = $update_command . ";";
+    $get_command = $get_command . ";";
 
 
 
@@ -54,7 +54,7 @@ if (get_res($resources) == 0) {
     http_response_code(404);
 }
 $data = [];
-$statement = $connection->prepare($update_command);
+$statement = $connection->prepare($get_command);
 $success = $statement->execute($data);
 $users = [];
 if ($success) {
