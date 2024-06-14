@@ -27,7 +27,7 @@ if (get_res($resources) == 4) {
         echo "Nem töltötte be a 18-at!";
     }
     require_once './connection.php';
-    $query = 'insert into felhasznalok (email, name, passwd, birth) values (:e, :n, :p, :b);';
+    $update_command = 'insert into felhasznalok (email, name, passwd, birth) values (:e, :n, :p, :b);';
     $select_data = [
         'e' => $email,
         'n' => $name,
@@ -35,7 +35,7 @@ if (get_res($resources) == 4) {
         'b' => $birth
     ];
 
-    $statement = $connection->prepare($query);
+    $statement = $connection->prepare($update_command);
     $success = $statement->execute($select_data);
     if ($success)
         echo "Futtatva";
