@@ -9,9 +9,11 @@
 </head>
 
 <body>
+    <nav><a href="login.php">Bejelentkezés</a><a href="registration.php">Regisztráció</a><a
+            href="modify_password.php">Jelszó módosítása</a></nav>
 
-    <h1>Jelszó megváltoztatása</h1>
     <form action="" method="post">
+        <h1>Jelszó megváltoztatása</h1>
         <label>Email cím: </label> <br>
         <input type="text" name="email">
         <label>Új jelszó: </label>

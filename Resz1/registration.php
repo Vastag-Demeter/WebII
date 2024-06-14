@@ -10,19 +10,23 @@
 </head>
 
 <body>
-
+    <nav><a href="login.php">Bejelentkezés</a><a href="registration.php">Regisztráció</a><a
+            href="modify_password.php">Jelszó módosítása</a></nav>
     <form action="" method="post">
         <h1>Regisztráció</h1>
-        <input type="email" name="email" placeholder="Email">
-        <input type="text" name="name" placeholder="Felhasználónév">
-        <input type="password" name="password" placeholder="Jelszó">
-        <label>Születési Dátum</label><input type="date" name="birth_date">
+        <input type="email" name="email" placeholder="Email" class="user_input">
+        <input type="text" name="name" placeholder="Felhasználónév" class="user_input">
+        <input type="password" name="password" placeholder="Jelszó" class="user_input">
+        <label>Születési Dátum</label><input type="date" name="birth_date" class="user_input">
         <button type="submit">Regisztráció</button>
+        <link rel="stylesheet" href="style.css">
     </form>
 
 
 
 </body>
+
+
 <?php
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     require './fuggvenyek.php';
@@ -33,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($email_errors) {
         $email = clear($_POST["email"]);
     } else {
-        echo "Az email megadása kötelező! <br>";
+        $error[] = "Az email megadása kötelező! <br>";
 
     }
 
@@ -42,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($name_errors) {
         $name = clear($_POST["name"]);
     } else {
-        echo "A név megadása kötelező! <br>";
+        $error[] = "A név megadása kötelező! <br>";
 
     }
 
@@ -51,7 +55,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($password_errors) {
         $password = clear($_POST["password"]);
     } else {
-        echo "A jelszó nem lehet üres és csak az Angol ABC nagy- és kisbetűit tartalmazhatja, valamint számjegyeket!<br>";
+        $error[] = "A jelszó nem lehet üres és csak az Angol ABC nagy- és kisbetűit tartalmazhatja, valamint számjegyeket!<br>";
 
     }
 
@@ -61,7 +65,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($birth_errors) {
         $birth = clear($_POST["birth_date"]);
     } else {
-        echo "A születési dátum megadása kötelező, valamint el kell múljon 18! <br>";
+        $error[] = "A születési dátum megadása kötelező, valamint el kell múljon 18! <br>";
 
     }
 
@@ -126,5 +130,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+
+
+<?php if (isset($error)): ?>
+    <div class="">
+        <?php for ($i = 0; $i < count($error); $i++): ?>
+            <p><?= $error[$i] ?></p>
+        <?php endfor; ?>
+    </div>
+
+
+<?php endif; ?>
 
 </html>

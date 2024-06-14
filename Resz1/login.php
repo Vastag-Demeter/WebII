@@ -8,6 +8,23 @@
     <link rel="stylesheet" href="style.css">
 </head>
 
+
+
+
+
+<body>
+    <nav><a href="login.php">Bejelentkezés</a><a href="registration.php">Regisztráció</a><a
+            href="modify_password.php">Jelszó módosítása</a></nav>
+    <form action="" method="POST">
+        <h1>Bejelentkezés</h1>
+        <label>E-mail:</label>
+        <input type="email" name="email"> <br>
+        <label>Jelszó:</label>
+        <input type="password" name="password"> <br>
+        <button type="submit">Bejelentkezés</button>
+    </form>
+
+</body>
 <?php
 $email_error;
 $password_error;
@@ -74,26 +91,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 }
 
-
-
-
-
 ?>
-
-
-
-
-
-<body>
-    <h1>Bejelentkezés</h1>
-    <form action="" method="POST">
-        <label>E-mail:</label>
-        <input type="email" name="email"> <br>
-        <label>Jelszó:</label>
-        <input type="password" name="password"> <br>
-        <button type="submit">Bejelentkezés</button>
-    </form>
-
-</body>
 
 </html>

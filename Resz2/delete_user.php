@@ -3,7 +3,7 @@
 require_once './connection.php';
 require_once './fuggvenyek.php';
 $resources = ["email", "name", "passwd", "birth"];
-
+$delete_command;
 if (get_res($resources) == 1) {
     if (array_key_exists('email', $_GET)) {
         $email = $_GET['email'];
@@ -13,7 +13,7 @@ if (get_res($resources) == 1) {
     } else {
         http_response_code(404);
     }
-} else if (get_res($resources) > 1) {
+} else if (get_res($resources) > 1 && get_res($resources) < 5) {
     $given_res = [];
 
     foreach ($resources as $res) {
