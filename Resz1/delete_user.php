@@ -9,7 +9,7 @@
 </head>
 
 <body>
-    <h1>Jelszó megváltoztatása</h1>
+    <h1>Felhasználó törlése</h1>
     <form action="" method="post">
         <label>Email cím: </label>
         <input type="text" name="email" class="user_input">
@@ -27,11 +27,11 @@
         if ($email_correct)
             $email = clear($_POST['email']);
         else {
-            echo "Az email megadása kötelező!";
-            exit();
+            $error[] = "Az email megadása kötelező!";
+
         }
 
-        echo "Az email: " . $email . "<br>";
+
 
         if ($email_correct) {
 
@@ -55,9 +55,9 @@
                 }
                 if ($user_deleted) {
                     file_put_contents('./data.csv', $correct_records);
-                    echo "Felhasználó törölve!";
+                    $error[] = "Törölve!";
                 } else
-                    echo "Nincs ilyen email címmel rendelkező felhasználó!";
+                    $error[] = "A felhasználó nem található a rendszerben!";
 
             }
         }
@@ -70,5 +70,17 @@
 
     ?>
 </body>
+<?php if (isset($error)): ?>
+    <div class="server_error_message">
+        <?php for ($i = 0; $i < count($error); $i++): ?>
+            <p><?= $error[$i] ?></p>
+        <?php endfor; ?>
+    </div>
+<?php endif; ?>
+
+
+
+
+
 
 </html>

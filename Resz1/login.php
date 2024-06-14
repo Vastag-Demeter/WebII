@@ -41,14 +41,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if ($email_error) {
         $email = clear($_POST['email']);
     } else
-        echo "Az email megadása kötelező!";
+        $error[] = "Az email megadása kötelező!";
 
     //Jelszó lekérése, nem lehet üres és a megfelelő formátumban kell lennie
     $password_error = check_data("password|required,password_correct_format");
     if ($password_error) {
         $password = clear($_POST['password']);
     } else
-        echo "A jelszó nem megfelelő!";
+        $error[] = "A jelszó nem megfelelő!";
 
 
     //Ha az email és a jelszó megfelel, akkor elkezdhetem ellenőrizni,
@@ -82,9 +82,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             //Ha találtam felhasználót, ha nem, mind a kettő
             //esetről tájékoztatom a bejelentkezni próbáló felhasználót
             if ($user_found) {
-                echo "A bejelentkezés sikeres!";
+                $error[] = "A bejelentkezés sikeres!";
             } else {
-                echo "Nem találtunk ilyen felhasználót a megadott email címmel és jelszóval";
+                $error[] = "Nem találtunk ilyen felhasználót a megadott email címmel és jelszóval";
             }
         } else {
             echo "A fájlt nem lehet megnyitni!";
@@ -95,5 +95,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+<?php if (isset($error)): ?>
+    <div class="server_error_message">
+        <?php for ($i = 0; $i < count($error); $i++): ?>
+            <p><?= $error[$i] ?></p>
+        <?php endfor; ?>
+    </div>
+
+
+<?php endif; ?>
 
 </html>
